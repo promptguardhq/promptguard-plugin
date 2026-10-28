@@ -55,8 +55,10 @@ To test a change by hand in a host, follow the Testing section of
 
 Write only what a stranger may read. A credential that reaches `main` is
 world-readable at once and must be rotated, not reverted: commit no API keys,
-tokens or credentials, and no internal/private repository paths or
-infrastructure details. Give a secret-shaped test fixture an obviously fake
+tokens or credentials, and no infrastructure details, private repository
+URLs, or local machine paths. A backend source path such as
+`backend/api/shared/security/engine.py` is the one exception: it is how an API
+value cites its source (above), and it names a file, not where to reach it. Give a secret-shaped test fixture an obviously fake
 shape, or exempt its path in `.gitleaks.toml` so the exemption is reviewable;
 never bypass the hook for it.
 
