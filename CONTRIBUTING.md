@@ -17,12 +17,9 @@ Each agent reads a different manifest: `.cursor-plugin/plugin.json` (Cursor), `.
 ## Plugin Structure
 
 ```
-.cursor-plugin/
-  plugin.json               # Cursor manifest (name, version, description, logo)
-.claude-plugin/
-  plugin.json               # Claude Code manifest (adds skills + mcpServers wiring)
-.codex-plugin/
-  plugin.json               # Codex manifest (adds skills + mcpServers + interface)
+.cursor-plugin/plugin.json  # Cursor manifest (name, version, description, logo)
+.claude-plugin/plugin.json  # Claude Code manifest (adds skills + mcpServers wiring)
+.codex-plugin/plugin.json   # Codex manifest (adds skills + mcpServers + interface)
 
 rules/
   secure-llm-usage.mdc      # Always-on rule: guides the agent to use PromptGuard
@@ -30,18 +27,28 @@ rules/
 
 skills/
   secure-llm-integration/
-    SKILL.md                 # Step-by-step integration playbook
+    SKILL.md                # Step-by-step integration playbook
     references/
-      threat-model.md        # LLM threat model reference
+      threat-model.md       # LLM threat model reference
+  promptguard-api/
+    SKILL.md                # API usage skill
+    references/
+      api-reference.md      # Threat types, PII entities, plan limits (hand-verified, see ADR 0003)
 
 commands/
-  promptguard-scan.md        # /promptguard-scan command definition
-  promptguard-secure.md      # /promptguard-secure command definition
+  promptguard-scan.md       # /promptguard-scan command definition
+  promptguard-secure.md     # /promptguard-secure command definition
 
 agents/
-  llm-security-reviewer.md   # LLM Security Reviewer agent definition
+  llm-security-reviewer.md  # LLM Security Reviewer agent definition
+settings.json               # Claude Code default agent (llm-security-reviewer)
 
-mcp.json                     # MCP server configuration (promptguard mcp -t stdio)
+mcp.json, .mcp.json         # MCP server configuration (promptguard mcp -t stdio); byte-identical, see ADR 0002
+assets/logo.svg             # Logo referenced by the manifests
+
+.githooks/pre-push          # Secret scan + manifest validation (enable: git config core.hooksPath .githooks)
+docs/adr/                   # Architecture decisions
+CONTEXT.md                  # Domain glossary
 ```
 
 ### Key Components
@@ -92,7 +99,14 @@ promptguard --version            # Verify CLI is installed
 
 ## CI/CD
 
-There is no CI pipeline. The repository has Dependabot configured for GitHub Actions updates (`.github/dependabot.yml`).
+CI runs on pushes to `main` and on PRs (`.github/workflows/ci.yml`, one `validate` job):
+
+- every tracked `*.json` parses
+- the required rule, skill, command, agent and manifest files exist
+- the three plugin manifests carry the same `version`
+- `mcp.json` and `.mcp.json` are byte-identical
+
+Secret scanning (gitleaks) runs on every push and PR in `.github/workflows/secret-scan.yml`. The tracked `.githooks/pre-push` hook runs both locally; enable it once per clone with `git config core.hooksPath .githooks`. There is no Dependabot configuration.
 
 ## Publishing
 
