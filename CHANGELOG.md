@@ -9,8 +9,17 @@ this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 a dated version section when a release goes out — an `Unreleased` block that
 survives three releases is a changelog nobody is maintaining.
 
-
 ## [Unreleased]
+
+### Added
+
+- **Every published release is announced in Slack `#releases`.** A new
+  workflow, `.github/workflows/release.yml`, runs when a GitHub Release is
+  published and posts its tag and notes link through
+  `scripts/post-release.sh`, a copy of the platform repo's script. It reads
+  the `SLACK_RELEASES_WEBHOOK_URL` secret, and an unset secret or a Slack
+  failure is a warning, never a failed release. Releases are still cut by
+  hand.
 
 ## [1.4.1] — 2026-10-23
 
