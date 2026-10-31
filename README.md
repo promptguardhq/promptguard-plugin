@@ -24,7 +24,7 @@ PromptGuard ships a native MCP server built into the CLI. Install the CLI first,
 <summary>Install in <b>Cursor</b></summary>
 <br />
 
-**One-click install** (opens Cursor and installs the plugin + MCP server):
+**One-click install** (opens Cursor and adds the MCP server only; the plugin's rules, commands and agent are a separate install, below):
 
 [Install PromptGuard in Cursor](cursor://anysphere.cursor-deeplink/mcp/install?name=promptguard&config=eyJjb21tYW5kIjoicHJvbXB0Z3VhcmQiLCJhcmdzIjpbIm1jcCIsIi10Iiwic3RkaW8iXX0=)
 
@@ -60,6 +60,15 @@ claude mcp add promptguard -- promptguard mcp -t stdio
 ```bash
 claude --plugin-dir /path/to/promptguard-plugin
 ```
+
+> **The plugin replaces Claude Code's main agent.** Its `settings.json` sets
+> `"agent": "llm-security-reviewer"`, so while the plugin is enabled every
+> Claude Code session runs as the LLM Security Reviewer: that agent's system
+> prompt applies to the whole conversation, not only to security reviews. If
+> you want the MCP tools without this, use the one-line MCP install above
+> instead of the plugin. To keep the plugin but choose your own main agent, set
+> `agent` in `~/.claude/settings.json`; your own settings take precedence over
+> a plugin's defaults.
 
 To submit to the official Claude Code marketplace: [claude.ai/settings/plugins/submit](https://claude.ai/settings/plugins/submit)
 
@@ -129,17 +138,20 @@ Add to `.agents/plugins/marketplace.json`:
 }
 ```
 
-Or add the MCP server standalone in `.codex/mcp.json`:
+Or add the MCP server on its own. Codex reads MCP servers from
+`~/.codex/config.toml` (or `.codex/config.toml` in a trusted project), so either
+run:
 
-```json
-{
-  "mcpServers": {
-    "promptguard": {
-      "command": "promptguard",
-      "args": ["mcp", "-t", "stdio"]
-    }
-  }
-}
+```bash
+codex mcp add promptguard -- promptguard mcp -t stdio
+```
+
+or add the table yourself:
+
+```toml
+[mcp_servers.promptguard]
+command = "promptguard"
+args = ["mcp", "-t", "stdio"]
 ```
 
 </details>
@@ -201,27 +213,15 @@ Beyond the MCP server, this repo includes agent skills and workflows:
 | **Agent** | LLM Security Reviewer — specialized code reviewer for prompt injection, PII leakage, agent tool abuse, and other LLM-specific vulnerabilities. |
 | **Rules** | Always-on guidance ensuring the agent writes secure LLM code when using OpenAI, Anthropic, or any supported provider. |
 
-These components work natively in Cursor (via the plugin system). For other agents, the skills and agent definitions use standard `SKILL.md` format compatible with Claude Code, Codex, and any agent that reads markdown skill files.
+These components work natively in Cursor and Claude Code (via their plugin systems). In Claude Code the agent also becomes the session's main agent; see the note under [Claude Code](#per-agent-setup). For other agents, the skills and agent definitions use standard `SKILL.md` format compatible with Claude Code, Codex, and any agent that reads markdown skill files.
 
 ## Project attribution
 
-To associate MCP requests with a specific PromptGuard project (for per-project billing and analytics), set the `project_id` in your local `.promptguard.json`:
-
-```json
-{
-  "version": "1.0",
-  "api_key": "pg_live_xxx",
-  "project_id": "your-project-id",
-  "proxy_url": "https://api.promptguard.co/api/v1"
-}
-```
-
-Or select a project globally:
-
-```bash
-promptguard projects list
-promptguard projects select <project-id>
-```
+Every request is attributed to the project the API key belongs to. There is no
+per-request project setting: to attribute MCP traffic to a different project,
+create an API key in that project (in the dashboard, under the project's API
+keys) and give that key to the MCP server, for example with
+`promptguard login` or the `PROMPTGUARD_API_KEY` environment variable.
 
 ## Supported LLM providers
 
