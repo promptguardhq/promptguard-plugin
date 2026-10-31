@@ -237,7 +237,7 @@ OpenAI, Anthropic, Google Generative AI (Gemini), Cohere, AWS Bedrock, LangChain
   [Prerequisites](#prerequisites)).
 - **API version:** the MCP server and the skills use PromptGuard's `/api/v1`
   API.
-- **Security fixes:** The 12-month security-fix window for a previous major version on that page is promised for the Python and Node.js SDKs, not for the plugin: security fixes ship in a new release, so stay on the latest one.
+- **Security fixes:** The 12-month security-fix window for a previous major version, which [Versioning & support](https://docs.promptguard.co/versioning-and-support#sdks) promises, covers the Python and Node.js SDKs, not the plugin: security fixes ship in a new release, so stay on the latest one.
 
 The full policy: [Versioning & support](https://docs.promptguard.co/versioning-and-support).
 
