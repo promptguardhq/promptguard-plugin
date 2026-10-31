@@ -1,0 +1,33 @@
+name: Announce release
+
+# A plugin Release is cut by hand (`gh release create vX.Y.Z` with the
+# CHANGELOG section as its notes): agents install the plugin from this
+# repository, so there is nothing to build or upload. This only tells Slack
+# #releases that one was published (ADR-0038 in the platform repo).
+on:
+  release:
+    types: [published]
+
+permissions:
+  contents: read
+
+jobs:
+  # It cannot fail the release: the job is continue-on-error and
+  # post-release.sh exits 0 on every failure, with a warning (an unset
+  # SLACK_RELEASES_WEBHOOK_URL included).
+  announce:
+    name: Announce in #releases
+    if: ${{ !github.event.release.prerelease }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          sparse-checkout: scripts
+      - name: Post to #releases
+        env:
+          SLACK_RELEASES_WEBHOOK_URL: ${{ secrets.SLACK_RELEASES_WEBHOOK_URL }}
+          TAG: ${{ github.event.release.tag_name }}
+          NOTES_URL: ${{ github.event.release.html_url }}
+        run: scripts/post-release.sh "Plugin" "$TAG" "$NOTES_URL"
