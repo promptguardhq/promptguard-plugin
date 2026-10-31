@@ -1,5 +1,5 @@
-[![CI](https://github.com/acebot712/promptguard-plugin/actions/workflows/ci.yml/badge.svg)](https://github.com/acebot712/promptguard-plugin/actions/workflows/ci.yml)
-[![License](https://img.shields.io/github/license/acebot712/promptguard-plugin)](https://github.com/acebot712/promptguard-plugin/blob/main/LICENSE)
+[![CI](https://github.com/promptguardhq/promptguard-plugin/actions/workflows/ci.yml/badge.svg)](https://github.com/promptguardhq/promptguard-plugin/actions/workflows/ci.yml)
+[![License](https://img.shields.io/github/license/promptguardhq/promptguard-plugin)](https://github.com/promptguardhq/promptguard-plugin/blob/main/LICENSE)
 
 # PromptGuard Agent Skills
 
@@ -12,9 +12,9 @@ PromptGuard ships a native MCP server built into the CLI. Install the CLI first,
 ### Prerequisites
 
 - **PromptGuard CLI**:
-  - macOS/Linux: `curl -fsSL https://raw.githubusercontent.com/acebot712/promptguard-cli/main/install.sh | sh`
-  - Windows, or any platform: download the binary from [GitHub Releases](https://github.com/acebot712/promptguard-cli/releases/latest)
-  - Every method, including building from source: [the CLI's installation table](https://github.com/acebot712/promptguard-cli#installation)
+  - macOS/Linux: `curl -fsSL https://raw.githubusercontent.com/promptguardhq/promptguard-cli/main/install.sh | sh`
+  - Windows, or any platform: download the binary from [GitHub Releases](https://github.com/promptguardhq/promptguard-cli/releases/latest)
+  - Every method, including building from source: [the CLI's installation table](https://github.com/promptguardhq/promptguard-cli#installation)
 - **PromptGuard account** — sign up at [promptguard.co](https://promptguard.co)
 - **API key** — get one from [app.promptguard.co/settings/api-keys](https://app.promptguard.co/settings/api-keys)
 
@@ -245,7 +245,7 @@ The full policy: [Versioning & support](https://docs.promptguard.co/versioning-a
 
 - [Documentation](https://docs.promptguard.co)
 - [Dashboard](https://app.promptguard.co)
-- [CLI](https://github.com/acebot712/promptguard-cli)
-- [Python SDK](https://github.com/acebot712/promptguard-python)
-- [Node.js SDK](https://github.com/acebot712/promptguard-node)
+- [CLI](https://github.com/promptguardhq/promptguard-cli)
+- [Python SDK](https://github.com/promptguardhq/promptguard-python)
+- [Node.js SDK](https://github.com/promptguardhq/promptguard-node)
 - [Website](https://promptguard.co)

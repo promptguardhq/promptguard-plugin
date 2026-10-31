@@ -126,7 +126,7 @@ A version is released by tagging it and publishing a GitHub Release whose notes 
 
 ## Reporting Issues
 
-Open an issue at https://github.com/acebot712/promptguard-plugin/issues with:
+Open an issue at https://github.com/promptguardhq/promptguard-plugin/issues with:
 
 - Agent and version (e.g. Cursor, Claude Code, Codex)
 - PromptGuard CLI version (`promptguard --version`)
