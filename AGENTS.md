@@ -62,6 +62,17 @@ value cites its source (above), and it names a file, not where to reach it. Give
 shape, or exempt its path in `.gitleaks.toml` so the exemption is reviewable;
 never bypass the hook for it.
 
+## GitHub holds no secrets
+
+**Change a secret in Secret Manager; GitHub holds none.** Workflows read every
+secret at run time from Google Secret Manager (`promptguard-production-472014`),
+signed in as this repository through Workload Identity; GitHub keeps only
+identifiers, as variables (`vars.*`). A workflow that names any `secrets.*` but
+`GITHUB_TOKEN` fails CI (`scripts/check_no_github_secrets.py`). The inventory,
+and how to add a secret with its per-secret grant:
+[`ENVIRONMENT_VARIABLES.md` § CI/CD-only](https://github.com/acebot712/promptguard/blob/main/docs/04_engineering/reference/ENVIRONMENT_VARIABLES.md#cicd-only)
+in the platform repo.
+
 ## Agent skills
 
 ### Issue tracker
