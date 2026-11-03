@@ -13,6 +13,8 @@ survives three releases is a changelog nobody is maintaining.
 
 ## [Unreleased]
 
+## [1.4.2] — 2026-11-03
+
 ### Added
 
 - **Every published release is announced in Slack `#releases`.** A new
@@ -22,6 +24,22 @@ survives three releases is a changelog nobody is maintaining.
   the `SLACK_RELEASES_WEBHOOK_URL` secret, and an unset secret or a Slack
   failure is a warning, never a failed release. Releases are still cut by
   hand.
+
+### Changed
+
+- **The README says that, in Claude Code, the plugin makes
+  `llm-security-reviewer` the main agent of every session while it is
+  enabled**, and gives the two ways out: an MCP-only install, or a user-level
+  agent setting, which outranks plugin defaults. Plugin behaviour is
+  unchanged (#9).
+- README setup fixes (#9): the sample `.promptguard.json` no longer fails the
+  CLI and no longer suggests `project_id` (requests are attributed to the
+  key's project); Codex MCP servers are configured in `~/.codex/config.toml`
+  or with `codex mcp add`, not a `.codex/mcp.json`; the Cursor deeplink
+  installs the MCP server only.
+- The README has a Versioning and support section.
+- The three manifests' `repository` points at
+  `github.com/promptguardhq/promptguard-plugin`, where the repository now lives.
 
 ## [1.4.1] — 2026-10-23
 
