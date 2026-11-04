@@ -2,11 +2,13 @@
 
 ## Overview
 
-The PromptGuard plugin: rules, skills, slash commands, a reviewer definition and
-an MCP registration that hosts (Cursor, Claude Code, Codex and other
-MCP-compatible assistants) load. It **configures** a security capability; the
-PromptGuard CLI **provides** it (`promptguard mcp -t stdio`, see
-`docs/adr/0001-registers-the-cli-mcp-server.md`).
+The PromptGuard plugin: rules, skills, a reviewer definition and an MCP
+registration that hosts (Cursor, Claude Code, Codex and other MCP-compatible
+assistants) load. It **configures** a security capability; PromptGuard's hosted
+MCP server at `https://api.promptguard.co/mcp` **provides** it (see
+`docs/adr/0001-registers-the-cli-mcp-server.md`, amended 2026-11-04). The CLI's
+local server (`promptguard mcp -t stdio`) is an optional extra the README
+documents, not something the plugin registers.
 
 Static Markdown and JSON, no build step. Each host loads its own manifest
 (`.cursor-plugin/`, `.claude-plugin/`, `.codex-plugin/`), and the three must
@@ -42,8 +44,8 @@ pushed range on purpose — a scan of the whole tree or of history would fail on
 its first run and teach everyone `--no-verify`.
 
 To test a change by hand in a host, follow the Testing section of
-`CONTRIBUTING.md`; the MCP tools appear only when the `promptguard` CLI is on
-`PATH`.
+`CONTRIBUTING.md`. The hosted MCP tools that need an account appear signed out
+until you sign in to PromptGuard.
 
 ## Conventions
 

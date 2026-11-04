@@ -1,16 +1,16 @@
 ---
 name: promptguard-secure
-description: Add PromptGuard security to the current project. Installs the SDK, configures initialization, sets up environment variables, and verifies the integration.
+description: "Add PromptGuard to the current project now: install promptguard-sdk, add init() at the entry point, set PROMPTGUARD_API_KEY, and verify. Use when the user asks to run promptguard-secure, to add PromptGuard to this project, or to fix what promptguard-scan found. To compare integration methods, use secure-llm-integration instead."
 ---
 
 # Add PromptGuard Security
 
-> **This command is the "do it now" path** — it applies the recommended
+> **This skill is the "do it now" path** — it applies the recommended
 > auto-instrumentation integration directly. To compare integration methods
 > (auto-instrumentation vs. Guard API vs. HTTP proxy) or for framework-specific
-> guidance, defer to the [secure-llm-integration skill](../skills/secure-llm-integration/SKILL.md),
+> guidance, defer to the [secure-llm-integration skill](../secure-llm-integration/SKILL.md),
 > which owns method selection and the detailed reference patterns. Keep this
-> command thin; put new method-selection detail in the skill to prevent drift.
+> skill thin; put new method-selection detail in secure-llm-integration to prevent drift.
 
 Add PromptGuard to this project to protect all LLM calls from prompt injection, PII leakage, and data exfiltration. Follow each phase in order.
 

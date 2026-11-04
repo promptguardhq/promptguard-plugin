@@ -1,6 +1,7 @@
 ---
 description: Enforce PromptGuard security when writing code that uses LLM SDKs (OpenAI, Anthropic, Google, Cohere, Bedrock, LangChain, CrewAI, Vercel AI SDK)
-alwaysApply: true
+globs: "**/*.py, **/*.js, **/*.mjs, **/*.cjs, **/*.jsx, **/*.ts, **/*.tsx"
+alwaysApply: false
 ---
 
 secure-llm-usage:

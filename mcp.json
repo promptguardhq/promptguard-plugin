@@ -1,8 +1,8 @@
 {
   "mcpServers": {
     "promptguard": {
-      "command": "promptguard",
-      "args": ["mcp", "-t", "stdio"]
+      "type": "http",
+      "url": "https://api.promptguard.co/mcp"
     }
   }
 }

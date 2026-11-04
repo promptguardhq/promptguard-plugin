@@ -1,6 +1,6 @@
 ---
 name: promptguard-scan
-description: Scan the project for unprotected LLM SDK usage, hardcoded secrets, and missing security configurations. Reports findings and offers to fix them.
+description: "Scan the current project for LLM SDK calls PromptGuard does not protect, hardcoded API keys, and PromptGuard misconfiguration, then report them by severity and offer fixes. Use when the user asks to run promptguard-scan, or to audit a project for unprotected LLM calls or leaked keys. Reads only; changes nothing until the user agrees."
 ---
 
 # PromptGuard Security Scan
@@ -17,6 +17,25 @@ Scan this project for LLM security issues. Follow each phase in order. Do not sk
 4. Search for existing `promptguard.init()` or `init()` calls from `promptguard-sdk`.
 
 ## Phase 2: Find LLM SDK usage
+
+If the PromptGuard MCP tools are connected, they can do part of this phase:
+
+- `promptguard_scan_project` scans a whole directory on disk. It exists only on
+  the **local** PromptGuard server (`promptguard mcp -t stdio`, from the
+  PromptGuard CLI), which the user adds separately; the plugin's hosted server
+  does not have it.
+- `promptguard_scan_code` takes the text of one file and reports the LLM SDK
+  imports and clients it finds. It is on the hosted server and needs no
+  sign-in, but it sends the code you pass it to `api.promptguard.co`, so ask
+  before sending files the user may not want to leave their machine.
+
+Neither tool is required: without them, search the codebase yourself as below.
+Either way, the tools report SDK usage only; still record the details listed at
+the end of this phase.
+
+> Tool names and where each runs: `src/commands/mcp.rs` in the PromptGuard CLI
+> (local server) and `backend/api/chatgpt/mcp_server.py` in the platform
+> (hosted server).
 
 Search the codebase for imports of these LLM provider SDKs:
 
@@ -96,7 +115,7 @@ After presenting findings, ask the user:
 >
 > Which would you like me to address?
 
-If the user agrees, use the `/promptguard-secure` command workflow to implement fixes.
+If the user agrees, follow the `promptguard-secure` skill to implement fixes.
 
 If there are zero findings, report:
 
