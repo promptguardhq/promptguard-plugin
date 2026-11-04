@@ -13,6 +13,8 @@ survives three releases is a changelog nobody is maintaining.
 
 ## [Unreleased]
 
+## [1.5.0] — 2026-11-05
+
 ### Added
 
 - **Install from a marketplace in one line.** The repository is now its own
