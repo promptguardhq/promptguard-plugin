@@ -18,7 +18,8 @@ Each agent reads a different manifest: `.cursor-plugin/plugin.json` (Cursor), `.
 
 ```
 .cursor-plugin/plugin.json  # Cursor manifest (name, version, description, logo)
-.claude-plugin/plugin.json  # Claude Code manifest (adds skills + mcpServers wiring)
+.claude-plugin/plugin.json  # Claude Code manifest (adds skills + mcpServers wiring, directory listing links)
+.claude-plugin/marketplace.json  # makes this repo its own Claude Code marketplace (one plugin, source ./)
 .codex-plugin/plugin.json   # Codex manifest (adds skills + mcpServers + interface)
 
 rules/
@@ -41,7 +42,6 @@ commands/
 
 agents/
   llm-security-reviewer.md  # LLM Security Reviewer agent definition
-settings.json               # Claude Code default agent (llm-security-reviewer)
 
 mcp.json, .mcp.json         # MCP server configuration (promptguard mcp -t stdio); byte-identical, see ADR 0002
 assets/logo.svg             # Logo referenced by the manifests
@@ -76,7 +76,7 @@ Testing is manual. There is no automated test suite for Cursor plugins.
 
 **To test locally:**
 
-1. Install the plugin into the agent you are testing (e.g. clone/symlink into your Cursor plugins directory, run `claude --plugin-dir .` for Claude Code, or register it in your Codex marketplace -- see the README's per-agent setup)
+1. Install the plugin into the agent you are testing (e.g. clone/symlink into your Cursor plugins directory, run `claude --plugin-dir .` for Claude Code, or `claude plugin marketplace add .` then `claude plugin install promptguard@promptguard` to test the marketplace install, or register it in your Codex marketplace -- see the README's per-agent setup)
 2. Restart the agent to pick up changes
 3. Verify each component:
 
@@ -119,6 +119,7 @@ A version is released by tagging it and publishing a GitHub Release whose notes 
 ## PR Checklist
 
 - [ ] All three manifests are valid JSON and in sync: `.cursor-plugin/plugin.json`, `.claude-plugin/plugin.json`, `.codex-plugin/plugin.json`
+- [ ] `claude plugin validate . --strict` passes (it checks `marketplace.json` and the Claude Code manifest together)
 - [ ] `.mcp.json` and `mcp.json` are valid JSON
 - [ ] Rules, skills, commands, and agents render correctly in markdown
 - [ ] Manually tested in Cursor **and** Claude Code **and** Codex (at minimum the MCP server connects and one skill/command runs in each)

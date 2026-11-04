@@ -13,6 +13,27 @@ survives three releases is a changelog nobody is maintaining.
 
 ## [Unreleased]
 
+### Added
+
+- **Install from a marketplace in one line.** The repository is now its own
+  Claude Code marketplace (`.claude-plugin/marketplace.json`), so
+  `/plugin install promptguard --marketplace promptguardhq/promptguard-plugin`
+  replaces `claude --plugin-dir /path/to/promptguard-plugin`. The Claude Code
+  manifest carries the directory listing fields (icon, documentation, support,
+  privacy and terms links) a submission to Anthropic's directory reads.
+  `claude plugin validate . --strict` passes, and the pre-push hook runs it.
+- **The skills install on their own** with `npx skills add
+  promptguardhq/promptguard-plugin`, into any agent that CLI supports.
+
+### Changed
+
+- **The plugin no longer replaces Claude Code's main agent.** The root
+  `settings.json` that made `llm-security-reviewer` the main agent of every
+  session is gone; the reviewer is the `promptguard:llm-security-reviewer`
+  subagent (`docs/adr/0004-the-plugin-does-not-take-over-the-main-agent.md`).
+- The README no longer tells Cursor users to search for a plugin listing that
+  does not exist yet, and says how to install the plugin locally until it does.
+
 ## [1.4.2] — 2026-11-03
 
 ### Added

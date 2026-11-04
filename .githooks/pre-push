@@ -67,6 +67,7 @@ test -f mcp.json
 test -f .mcp.json
 test -f .cursor-plugin/plugin.json
 test -f .claude-plugin/plugin.json
+test -f .claude-plugin/marketplace.json
 test -f .codex-plugin/plugin.json
 test -f rules/secure-llm-usage.mdc
 test -f rules/llm-security-review.mdc
@@ -86,6 +87,18 @@ if [ "$v_cursor" != "$v_claude" ] || [ "$v_cursor" != "$v_codex" ]; then
 fi
 
 diff -u mcp.json .mcp.json
+
+# Claude Code's own validator is the authority on marketplace.json and the
+# Claude Code manifest, and it is not in CI (it would mean installing Claude
+# Code on every run). Run it here when it is on PATH; say so when it is not.
+if command -v claude >/dev/null 2>&1; then
+  claude plugin validate . --strict >/dev/null || {
+    echo "pre-push: 'claude plugin validate . --strict' failed; run it to see why." >&2
+    exit 1
+  }
+else
+  echo "pre-push: claude not on PATH -- marketplace.json was not validated." >&2
+fi
 
 elapsed=$(( $(date +%s) - start ))
 echo "pre-push gate passed in ${elapsed}s -- pushing."
