@@ -1,5 +1,6 @@
 {
   "name": "promptguard",
+  "displayName": "PromptGuard",
   "description": "LLM security for AI coding agents -- protect applications from prompt injection, PII leakage, and data exfiltration",
   "version": "1.4.2",
   "author": {
@@ -10,6 +11,11 @@
   "homepage": "https://promptguard.co",
   "repository": "https://github.com/promptguardhq/promptguard-plugin",
   "license": "MIT",
+  "icon": "./assets/logo.svg",
+  "documentationUrl": "https://docs.promptguard.co/tools/mcp",
+  "supportUrl": "https://promptguard.co/contact",
+  "privacyPolicyUrl": "https://promptguard.co/privacy",
+  "termsOfServiceUrl": "https://promptguard.co/terms",
   "skills": "./skills/",
   "mcpServers": "./.mcp.json"
 }

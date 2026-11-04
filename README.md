@@ -41,7 +41,10 @@ Or add to `.cursor/mcp.json`:
 }
 ```
 
-Cursor also supports the plugin's rules, commands, and agent — install via Settings > Plugins > search "promptguard".
+For the plugin's rules, skills, commands and agent as well, install the plugin
+from the Cursor Marketplace once it is listed there (Customize → Marketplace,
+search "PromptGuard"). Until then, clone this repository into
+`~/.cursor/plugins/local/promptguard` and restart Cursor.
 
 </details>
 
@@ -55,22 +58,42 @@ Cursor also supports the plugin's rules, commands, and agent — install via Set
 claude mcp add promptguard -- promptguard mcp -t stdio
 ```
 
-**As a plugin** (includes skills, agents, and the MCP server):
+**As a plugin** (skills, the security reviewer agent, and the MCP server).
+This repository is its own plugin marketplace, so one line installs it, in a
+Claude Code session:
 
-```bash
-claude --plugin-dir /path/to/promptguard-plugin
+```
+/plugin install promptguard --marketplace promptguardhq/promptguard-plugin
 ```
 
-> **The plugin replaces Claude Code's main agent.** Its `settings.json` sets
-> `"agent": "llm-security-reviewer"`, so while the plugin is enabled every
-> Claude Code session runs as the LLM Security Reviewer: that agent's system
-> prompt applies to the whole conversation, not only to security reviews. If
-> you want the MCP tools without this, use the one-line MCP install above
-> instead of the plugin. To keep the plugin but choose your own main agent, set
-> `agent` in `~/.claude/settings.json`; your own settings take precedence over
-> a plugin's defaults.
+or in two steps, from your shell:
 
-To submit to the official Claude Code marketplace: [claude.ai/settings/plugins/submit](https://claude.ai/settings/plugins/submit)
+```bash
+claude plugin marketplace add promptguardhq/promptguard-plugin
+claude plugin install promptguard@promptguard
+```
+
+The plugin adds the `promptguard:llm-security-reviewer` subagent; it does not
+change your main agent. Ask for a security review, or pick the agent from
+`/agents`, to use it.
+
+</details>
+
+<details>
+<summary>Install the <b>skills only</b>, in any agent</summary>
+<br />
+
+The two skills (`secure-llm-integration` and `promptguard-api`) install on
+their own, into Claude Code, Cursor, Codex and the other agents the
+[`skills`](https://github.com/vercel-labs/skills) CLI supports:
+
+```bash
+npx skills add promptguardhq/promptguard-plugin
+```
+
+They teach the agent how to add PromptGuard to an application and how to call
+its API. They work without the MCP server; the CLI is needed only for the
+scan and redact tools.
 
 </details>
 
@@ -213,7 +236,7 @@ Beyond the MCP server, this repo includes agent skills and workflows:
 | **Agent** | LLM Security Reviewer — specialized code reviewer for prompt injection, PII leakage, agent tool abuse, and other LLM-specific vulnerabilities. |
 | **Rules** | Always-on guidance ensuring the agent writes secure LLM code when using OpenAI, Anthropic, or any supported provider. |
 
-These components work natively in Cursor and Claude Code (via their plugin systems). In Claude Code the agent also becomes the session's main agent; see the note under [Claude Code](#per-agent-setup). For other agents, the skills and agent definitions use standard `SKILL.md` format compatible with Claude Code, Codex, and any agent that reads markdown skill files.
+These components work natively in Cursor and Claude Code (via their plugin systems). For other agents, the skills and agent definitions use standard `SKILL.md` format compatible with Claude Code, Codex, and any agent that reads markdown skill files.
 
 ## Project attribution
 

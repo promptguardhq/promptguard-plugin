@@ -59,6 +59,7 @@ jobs:
           test -f .mcp.json
           test -f .cursor-plugin/plugin.json
           test -f .claude-plugin/plugin.json
+          test -f .claude-plugin/marketplace.json
           test -f .codex-plugin/plugin.json
           test -f rules/secure-llm-usage.mdc
           test -f rules/llm-security-review.mdc

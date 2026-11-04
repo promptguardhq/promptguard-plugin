@@ -1,0 +1,15 @@
+{
+  "name": "promptguard",
+  "description": "PromptGuard's plugins for AI coding agents",
+  "owner": {
+    "name": "PromptGuard",
+    "email": "support@promptguard.co"
+  },
+  "plugins": [
+    {
+      "name": "promptguard",
+      "source": "./",
+      "description": "LLM security for AI coding agents -- protect applications from prompt injection, PII leakage, and data exfiltration"
+    }
+  ]
+}
