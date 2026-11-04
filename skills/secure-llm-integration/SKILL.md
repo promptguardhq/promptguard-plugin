@@ -7,7 +7,7 @@ description: "Add PromptGuard security to any LLM-powered application. Use when 
 
 > **This skill owns integration-method selection** (auto-instrumentation vs.
 > Guard API vs. HTTP proxy) and the detailed, framework-specific patterns.
-> The [`/promptguard-secure` command](../../commands/promptguard-secure.md) is
+> The [`promptguard-secure` skill](../promptguard-secure/SKILL.md) is
 > the thin "do it now" entry point that applies the recommended path; when a
 > user needs to choose between methods, follow this skill.
 

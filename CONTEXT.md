@@ -1,13 +1,14 @@
 # PromptGuard Plugin
 
 The PromptGuard plugin for AI coding assistants. It ships no runnable code: it
-is a package of instructions an assistant loads — rules, skills, commands, a
-reviewer definition — plus the registration that points the assistant at the
-PromptGuard CLI's MCP server.
+is a package of instructions an assistant loads — rules, skills, a reviewer
+definition — plus the registration that points the assistant at PromptGuard's
+hosted MCP server.
 
 The single most important distinction in this repo is that it **configures** a
 security capability rather than **providing** one. Everything executable lives
-in the CLI.
+elsewhere: the hosted MCP server in the platform, the optional local server in
+the CLI.
 
 ## Language
 
@@ -35,7 +36,9 @@ _Avoid_: agent, app, target, user code
 ### What the plugin is made of
 
 **Rule**:
-Guidance the host loads into context unconditionally, for every request.
+Guidance in `rules/*.mdc` (Cursor's rule format) that the host attaches to
+context by itself: when a matching file is in context, or when the host judges
+the rule's description relevant. A person can also @-mention one.
 _Avoid_: instruction, prompt, guideline, policy (a policy is a PromptGuard
 guardrail, not a rule)
 
@@ -45,8 +48,9 @@ decision between approaches is owned.
 _Avoid_: workflow, guide, recipe
 
 **Command**:
-A named entry point a person invokes deliberately, which does the recommended
-thing without asking the person to choose.
+A skill meant to be invoked by name (`promptguard-scan`, `promptguard-secure`),
+which does the recommended thing without asking the person to choose. Since
+1.5.0 these are skills in `skills/`; there is no `commands/` directory.
 _Avoid_: slash command (the leading slash is one host's spelling), action,
 shortcut
 
@@ -56,13 +60,14 @@ should load. There is one per supported host and they carry the same version.
 _Avoid_: config, plugin.json, package manifest
 
 **MCP server registration**:
-The file naming the command a host should run to obtain PromptGuard's MCP
-tools. It registers a server; it does not contain one.
+The file (`mcp.json`, `.mcp.json`) naming where a host gets PromptGuard's MCP
+tools: the hosted server's URL. It registers a server; it does not contain one.
 _Avoid_: MCP server (this repo has none), MCP config, mcp.json
 
 **MCP tool**:
 One callable the registered server exposes to the host. They are implemented by
-the CLI and only listed here.
+the hosted server (or, for the optional local server, the CLI) and only listed
+here.
 _Avoid_: function, endpoint, API
 
 ### Terms that belong to other repos and must not be respelled here

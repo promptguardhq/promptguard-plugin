@@ -11,20 +11,20 @@ Each agent reads a different manifest: `.cursor-plugin/plugin.json` (Cursor), `.
 | Tool | Version |
 |------|---------|
 | Cursor | latest |
-| PromptGuard CLI | latest (`brew install promptguard/tap/promptguard`) |
-| PromptGuard API key | [app.promptguard.co/settings/api-keys](https://app.promptguard.co/settings/api-keys) |
+| PromptGuard account | [promptguard.co](https://promptguard.co), to sign in to the hosted MCP server |
+| PromptGuard CLI (optional) | latest, only to test the optional local server ([install](https://github.com/promptguardhq/promptguard-cli#installation)) |
 
 ## Plugin Structure
 
 ```
 .cursor-plugin/plugin.json  # Cursor manifest (name, version, description, logo)
-.claude-plugin/plugin.json  # Claude Code manifest (adds skills + mcpServers wiring, directory listing links)
+.claude-plugin/plugin.json  # Claude Code manifest (metadata and directory listing links; skills/ and .mcp.json load by default)
 .claude-plugin/marketplace.json  # makes this repo its own Claude Code marketplace (one plugin, source ./)
 .codex-plugin/plugin.json   # Codex manifest (adds skills + mcpServers + interface)
 
 rules/
-  secure-llm-usage.mdc      # Always-on rule: guides the agent to use PromptGuard
-  llm-security-review.mdc   # Security review rule
+  secure-llm-usage.mdc      # Auto-attached on Python/JS/TS source: guides the agent to use PromptGuard
+  llm-security-review.mdc   # Agent-requested or @-mentioned security review checklist
 
 skills/
   secure-llm-integration/
@@ -35,15 +35,15 @@ skills/
     SKILL.md                # API usage skill
     references/
       api-reference.md      # Threat types, PII entities, plan limits (hand-verified, see ADR 0003)
-
-commands/
-  promptguard-scan.md       # /promptguard-scan command definition
-  promptguard-secure.md     # /promptguard-secure command definition
+  promptguard-scan/
+    SKILL.md                # Scan a project for unprotected LLM calls and secrets
+  promptguard-secure/
+    SKILL.md                # Add PromptGuard to a project end-to-end
 
 agents/
   llm-security-reviewer.md  # LLM Security Reviewer agent definition
 
-mcp.json, .mcp.json         # MCP server configuration (promptguard mcp -t stdio); byte-identical, see ADR 0002
+mcp.json, .mcp.json         # MCP server registration (hosted https://api.promptguard.co/mcp); byte-identical, see ADR 0002
 assets/logo.svg             # Logo referenced by the manifests
 
 .githooks/pre-push          # Secret scan + manifest validation (enable: git config core.hooksPath .githooks)
@@ -56,11 +56,10 @@ CONTEXT.md                  # Domain glossary
 | Component | File(s) | Purpose |
 |---|---|---|
 | **Plugin manifest** | `.cursor-plugin/plugin.json` | Metadata: name, version, description, logo |
-| **Rules** | `rules/*.mdc` | Always-on guidance injected into agent context |
-| **Skills** | `skills/*/SKILL.md` | Step-by-step playbooks the agent follows on request |
-| **Commands** | `commands/*.md` | Slash commands (`/promptguard-scan`, `/promptguard-secure`) |
+| **Rules** | `rules/*.mdc` | Cursor rules: guidance attached by file type, or by the agent when relevant |
+| **Skills** | `skills/*/SKILL.md` | Playbooks the agent follows when a request matches, or that you invoke by name |
 | **Agents** | `agents/*.md` | Specialized agent definitions |
-| **MCP config** | `mcp.json` | Registers the PromptGuard MCP server |
+| **MCP config** | `mcp.json`, `.mcp.json` | Registers PromptGuard's hosted MCP server |
 
 ## Development Workflow
 
@@ -83,14 +82,15 @@ Testing is manual. There is no automated test suite for Cursor plugins.
 | Component | How to verify |
 |---|---|
 | **Rules** | Open a file with LLM imports (e.g., `import openai`). The agent should suggest PromptGuard when writing LLM code. |
-| **Skills** | Ask the agent: "Add PromptGuard to this project". It should follow the skill playbook. |
-| **Commands** | Type `/promptguard-scan` or `/promptguard-secure` in the agent chat. |
-| **MCP tools** | Open the MCP panel in your agent's settings. Verify the `promptguard` server is listed and tools appear (`promptguard_scan_text`, `promptguard_redact`, etc.). |
+| **Skills** | Ask the agent: "Add PromptGuard to this project". It should follow the skill playbook. Invoke `promptguard-scan` and `promptguard-secure` by name (`/promptguard:promptguard-scan` in Claude Code). |
+| **MCP tools** | Open the MCP panel in your agent's settings. Verify the `promptguard` server (`https://api.promptguard.co/mcp`) is listed and its tools appear (`promptguard_scan_text`, `promptguard_redact`, `promptguard_status`, `promptguard_scan_code`); sign in when a tool asks. |
 | **Agents** | Select the "LLM Security Reviewer" agent and ask it to review code. |
 
 ### MCP Server Testing
 
-The MCP server is provided by the PromptGuard CLI, not by this plugin. The plugin only configures the agent to use it via `mcp.json` / `.mcp.json` (and the `mcpServers` key in the Claude Code and Codex manifests). To test:
+The MCP server is PromptGuard's hosted server, not part of this plugin. The plugin only registers it, in `mcp.json` / `.mcp.json` (and the `mcpServers` key in the Codex manifest). In Claude Code, `claude mcp list` shows `plugin:promptguard:promptguard: https://api.promptguard.co/mcp (HTTP)` with the plugin installed.
+
+To test the optional local server the README documents:
 
 ```bash
 promptguard mcp -t stdio        # Verify CLI MCP server starts
@@ -102,7 +102,7 @@ promptguard --version            # Verify CLI is installed
 CI runs on pushes to `main` and on PRs (`.github/workflows/ci.yml`, one `validate` job):
 
 - every tracked `*.json` parses
-- the required rule, skill, command, agent and manifest files exist
+- the required rule, skill, agent and manifest files exist
 - the three plugin manifests carry the same `version`
 - `mcp.json` and `.mcp.json` are byte-identical
 
@@ -121,8 +121,8 @@ A version is released by tagging it and publishing a GitHub Release whose notes 
 - [ ] All three manifests are valid JSON and in sync: `.cursor-plugin/plugin.json`, `.claude-plugin/plugin.json`, `.codex-plugin/plugin.json`
 - [ ] `claude plugin validate . --strict` passes (it checks `marketplace.json` and the Claude Code manifest together)
 - [ ] `.mcp.json` and `mcp.json` are valid JSON
-- [ ] Rules, skills, commands, and agents render correctly in markdown
-- [ ] Manually tested in Cursor **and** Claude Code **and** Codex (at minimum the MCP server connects and one skill/command runs in each)
+- [ ] Rules, skills, and agents render correctly in markdown
+- [ ] Manually tested in Cursor **and** Claude Code **and** Codex (at minimum the MCP server connects and one skill runs in each)
 - [ ] PR description explains the change
 
 ## Reporting Issues

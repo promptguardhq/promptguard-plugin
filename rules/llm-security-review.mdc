@@ -1,8 +1,6 @@
 ---
-description: Security review checklist for LLM-powered applications. Invoke manually when reviewing AI code for production readiness.
+description: Security review checklist for LLM-powered applications. Apply when reviewing code that calls LLMs for production readiness, or when the user @-mentions this rule.
 alwaysApply: false
-globs:
-  - "**/*"
 ---
 
 llm-security-review:

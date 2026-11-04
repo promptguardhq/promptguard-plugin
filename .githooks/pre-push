@@ -73,8 +73,8 @@ test -f rules/secure-llm-usage.mdc
 test -f rules/llm-security-review.mdc
 test -f skills/secure-llm-integration/SKILL.md
 test -f skills/promptguard-api/SKILL.md
-test -f commands/promptguard-scan.md
-test -f commands/promptguard-secure.md
+test -f skills/promptguard-scan/SKILL.md
+test -f skills/promptguard-secure/SKILL.md
 test -f agents/llm-security-reviewer.md
 test -f AGENTS.md
 

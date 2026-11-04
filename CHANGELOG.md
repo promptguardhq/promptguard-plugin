@@ -25,8 +25,46 @@ survives three releases is a changelog nobody is maintaining.
 - **The skills install on their own** with `npx skills add
   promptguardhq/promptguard-plugin`, into any agent that CLI supports.
 
+- **The README says what the plugin sends where**: which tools send text or
+  code to `api.promptguard.co`, that sign-in goes through Auth0, that skills,
+  rules and the reviewer send nothing themselves, and what the optional local
+  server sends.
+
 ### Changed
 
+- **The plugin's MCP server is PromptGuard's hosted server, so the plugin no
+  longer needs the PromptGuard CLI.** `mcp.json` and `.mcp.json` register
+  `https://api.promptguard.co/mcp` (`"type": "http"`) instead of
+  `promptguard mcp -t stdio`. It signs you in to PromptGuard with OAuth when a
+  tool needs an account, so there is no API key to configure. Its tools are
+  `promptguard_scan_text`, `promptguard_redact` and `promptguard_status`
+  (sign-in) and `promptguard_scan_code` (no sign-in). The CLI's local server,
+  which alone has `promptguard_scan_project`, `promptguard_auth` and
+  `promptguard_logout`, is now an optional second server the README shows how
+  to add as `promptguard-local`. A local server whose command is a binary on
+  `PATH` is held in Anthropic's directory review and ignored by claude.ai Chat,
+  and Codex's public directory asks for a remote endpoint; ADR 0001 is amended
+  with the reasoning. The plugin's version is 1.5.0, the same in all three
+  manifests. Codex reads the same `.mcp.json` through its manifest's
+  `mcpServers`, and Cursor reads `mcp.json`; both accept `"type": "http"`.
+- **`promptguard-scan` and `promptguard-secure` are skills now, not
+  commands** (`skills/promptguard-scan/`, `skills/promptguard-secure/`), as
+  Claude Code recommends for new plugins; `commands/` is gone. In Claude Code
+  they run as `/promptguard:promptguard-scan` and
+  `/promptguard:promptguard-secure`, as before, and they can now also start
+  on their own when a request matches. Cursor plugins load `skills/` too, so
+  Cursor keeps both, and `npx skills add` now installs four skills.
+  `promptguard-scan` says which MCP tools can help and that
+  `promptguard_scan_project` needs the local server.
+- **The Cursor rules no longer load everywhere.** `secure-llm-usage` was
+  always on, in every chat; it now attaches when a Python or
+  JavaScript/TypeScript source file is in context. `llm-security-review`
+  said "invoke manually" but matched every file (`globs: "**/*"`); it is now
+  applied when the agent judges a review relevant, or when you @-mention it.
+- The Claude Code manifest drops `"skills": "./skills/"` and
+  `"mcpServers": "./.mcp.json"`, which only repeated what Claude Code loads by
+  default; the installed plugin's skills, reviewer and MCP server are
+  unchanged.
 - **The plugin no longer replaces Claude Code's main agent.** The root
   `settings.json` that made `llm-security-reviewer` the main agent of every
   session is gone; the reviewer is the `promptguard:llm-security-reviewer`
