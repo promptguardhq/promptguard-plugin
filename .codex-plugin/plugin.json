@@ -33,6 +33,9 @@
     ],
     "websiteURL": "https://promptguard.co",
     "privacyPolicyURL": "https://promptguard.co/privacy",
-    "termsOfServiceURL": "https://promptguard.co/terms"
+    "termsOfServiceURL": "https://promptguard.co/terms",
+    "supportURL": "https://promptguard.co/contact",
+    "composerIcon": "./assets/logo.svg",
+    "logo": "./assets/logo.svg"
   }
 }

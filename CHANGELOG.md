@@ -13,6 +13,14 @@ survives three releases is a changelog nobody is maintaining.
 
 ## [Unreleased]
 
+### Added
+
+- **A package for ChatGPT and Codex.** `scripts/build-openai-package.sh`
+  builds the ZIP the OpenAI Platform's Plugins dashboard takes: the hosted
+  server, the skills, the logo, the listing text and the review cases, from
+  `openai/plugin.json` and `openai/mcp.json`. The Codex manifest also names a
+  support link and the logo.
+
 ### Fixed
 
 - **The logo shows on dark backgrounds.** It was a black shield on a
