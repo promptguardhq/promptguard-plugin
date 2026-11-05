@@ -13,6 +13,13 @@ survives three releases is a changelog nobody is maintaining.
 
 ## [Unreleased]
 
+### Fixed
+
+- **The logo shows on dark backgrounds.** It was a black shield on a
+  transparent ground, so directories in a dark theme (Claude's settings, for
+  one) showed an almost empty tile. It now sits on a white rounded tile and
+  reads the same on light and dark.
+
 ## [1.5.0] — 2026-11-05
 
 ### Added
