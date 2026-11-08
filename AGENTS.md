@@ -21,7 +21,9 @@ purpose (`docs/adr/0002-duplicate-mcp-registration-files.md`): edit both togethe
 
 ## Every API value is verified against the backend
 
-Everything here is prose an LLM reads as authoritative, and nothing checks it.
+Everything here is prose an LLM reads as authoritative, and almost nothing
+checks it: `scripts/check.sh` fails only on a stale "verified against ... on"
+date, and the platform repo's tests pin the threat-type table.
 Any concrete API value you write, a threat type, a PII entity name, a plan
 limit, an endpoint path, is checked against the backend at the time it is
 written, and the backend file it came from is named next to it. Threat types,
