@@ -6,7 +6,7 @@ The PromptGuard plugin: rules, skills, a reviewer definition and an MCP
 registration that hosts (Cursor, Claude Code, Codex and other MCP-compatible
 assistants) load. It **configures** a security capability; PromptGuard's hosted
 MCP server at `https://api.promptguard.co/mcp` **provides** it (see
-`docs/adr/0001-registers-the-cli-mcp-server.md`, amended 2026-11-04). The CLI's
+`docs/adr/0001-registers-an-existing-mcp-server.md`, amended 2026-11-04). The CLI's
 local server (`promptguard mcp -t stdio`) is an optional extra the README
 documents, not something the plugin registers.
 
@@ -38,8 +38,10 @@ own hooks for you:
 git config core.hooksPath .githooks
 ```
 
-`.githooks/pre-push` runs a gitleaks scan of the commits you are pushing and the
-manifest validation that mirrors CI's `validate` job. The scan is scoped to the
+**Before you hand back a change, run `bash scripts/check.sh`.** It is the
+whole gate and exactly what CI's `validate` job runs. `.githooks/pre-push` runs
+it too, after a gitleaks scan of the commits you are pushing (a missing gitleaks
+fails the push). The scan is scoped to the
 pushed range on purpose, a scan of the whole tree or of history would fail on
 its first run and teach everyone `--no-verify`.
 

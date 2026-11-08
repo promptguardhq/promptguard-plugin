@@ -1,6 +1,7 @@
-# The plugin registers the CLI's MCP server rather than shipping one
+# The plugin registers an existing MCP server rather than shipping one
 
-**Amended 2026-11-04 (1.5.0):** the plugin now registers PromptGuard's hosted
+**Amended 2026-11-04 (1.5.0), renamed 2026-11-09** (was
+`0001-registers-the-cli-mcp-server.md`, a name the amendment made untrue): the plugin now registers PromptGuard's hosted
 MCP server, not the CLI's. The reasoning against shipping a server in this
 repo still holds; what changed is which existing server the plugin points at.
 See [Amendment](#amendment-2026-11-04-the-plugin-registers-the-hosted-server)
