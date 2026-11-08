@@ -63,7 +63,7 @@ Change the LLM SDK's `base_url` to `https://api.promptguard.co/api/v1`. PromptGu
 pip install promptguard-sdk
 ```
 
-2. Add to `requirements.txt` with a version floor for reproducible builds (bump deliberately after reviewing each release — a security dependency should never be left unpinned):
+2. Add to `requirements.txt` with a version floor for reproducible builds (bump deliberately after reviewing each release, a security dependency should never be left unpinned):
 
 ```
 promptguard-sdk>=1.8

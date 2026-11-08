@@ -1,8 +1,8 @@
 # PromptGuard Plugin
 
 The PromptGuard plugin for AI coding assistants. It ships no runnable code: it
-is a package of instructions an assistant loads — rules, skills, a reviewer
-definition — plus the registration that points the assistant at PromptGuard's
+is a package of instructions an assistant loads, rules, skills, a reviewer
+definition, plus the registration that points the assistant at PromptGuard's
 hosted MCP server.
 
 The single most important distinction in this repo is that it **configures** a
@@ -15,7 +15,7 @@ the CLI.
 ### Who is being talked about
 
 **Host**:
-The AI coding assistant that loads this plugin — Cursor, Claude Code, Codex,
+The AI coding assistant that loads this plugin, Cursor, Claude Code, Codex,
 Copilot, Gemini CLI, Windsurf, VS Code.
 _Avoid_: agent, editor, IDE, client. "Agent" is the word this repo has used for
 this, and it is the worst available: it also names the reviewer below and the
@@ -79,13 +79,13 @@ has its calls scanned without changing how they are made.
 **Proxy mode**:
 Adopting PromptGuard by using its drop-in client, so PromptGuard is in the
 request path and forwards to the provider.
-_Avoid_: HTTP proxy, proxy integration — the SDKs call this proxy mode, and a
+_Avoid_: HTTP proxy, proxy integration, the SDKs call this proxy mode, and a
 second name for it in agent-facing prose is a second thing to keep true.
 
 **Guard API**:
 The endpoint that classifies content and returns a decision. Adopting
 PromptGuard *through* it means calling the Guard client directly, which is a
-third integration method — but the API and the method are not the same noun and
+third integration method, but the API and the method are not the same noun and
 should not share one.
 _Avoid_: scan API, security API
 

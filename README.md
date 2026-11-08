@@ -3,7 +3,7 @@
 
 # PromptGuard Agent Skills
 
-LLM security for AI coding agents — protect applications from prompt injection, PII leakage, and data exfiltration. Works with **Cursor, Claude Code, Codex, Copilot, Gemini CLI, Windsurf, VSCode**, and any MCP-compatible agent.
+LLM security for AI coding agents, protect applications from prompt injection, PII leakage, and data exfiltration. Works with **Cursor, Claude Code, Codex, Copilot, Gemini CLI, Windsurf, VSCode**, and any MCP-compatible agent.
 
 ## Install the plugin
 
@@ -272,8 +272,8 @@ the plugin's `promptguard`. It runs `promptguard mcp -t stdio`:
 
 | Component | Description |
 |-----------|-------------|
-| **Skills** | **Secure LLM Integration** — walks through adding PromptGuard to any project. **PromptGuard API** — teaches the agent exact request/response schemas for scan, redact, and guard endpoints. **promptguard-scan** — finds unprotected LLM calls and hardcoded secrets. **promptguard-secure** — adds PromptGuard to a project end-to-end. |
-| **Agent** | LLM Security Reviewer — specialized code reviewer for prompt injection, PII leakage, agent tool abuse, and other LLM-specific vulnerabilities. |
+| **Skills** | **Secure LLM Integration**: walks through adding PromptGuard to any project. **PromptGuard API**: teaches the agent exact request/response schemas for scan, redact, and guard endpoints. **promptguard-scan**: finds unprotected LLM calls and hardcoded secrets. **promptguard-secure**: adds PromptGuard to a project end-to-end. |
+| **Agent** | LLM Security Reviewer, specialized code reviewer for prompt injection, PII leakage, agent tool abuse, and other LLM-specific vulnerabilities. |
 | **Rules** (Cursor) | Guidance that attaches when the agent works on Python or JavaScript/TypeScript source, so it writes secure LLM code with OpenAI, Anthropic, or any supported provider; and a production-readiness review checklist the agent applies when you ask for a review, or that you @-mention. |
 | **MCP server** | PromptGuard's hosted server (above). |
 

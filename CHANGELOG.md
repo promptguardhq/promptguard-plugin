@@ -8,7 +8,7 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and
 this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 `Unreleased` holds work that is merged but not yet published. Move entries into
-a dated version section when a release goes out — an `Unreleased` block that
+a dated version section when a release goes out, an `Unreleased` block that
 survives three releases is a changelog nobody is maintaining.
 
 ## [Unreleased]
@@ -28,7 +28,7 @@ survives three releases is a changelog nobody is maintaining.
   one) showed an almost empty tile. It now sits on a white rounded tile and
   reads the same on light and dark.
 
-## [1.5.0] — 2026-11-05
+## [1.5.0] - 2026-11-05
 
 ### Added
 
@@ -89,7 +89,7 @@ survives three releases is a changelog nobody is maintaining.
 - The README no longer tells Cursor users to search for a plugin listing that
   does not exist yet, and says how to install the plugin locally until it does.
 
-## [1.4.2] — 2026-11-03
+## [1.4.2] - 2026-11-03
 
 ### Added
 
@@ -117,7 +117,7 @@ survives three releases is a changelog nobody is maintaining.
 - The three manifests' `repository` points at
   `github.com/promptguardhq/promptguard-plugin`, where the repository now lives.
 
-## [1.4.1] — 2026-10-23
+## [1.4.1] - 2026-10-23
 
 ### Changed
 
@@ -128,10 +128,10 @@ survives three releases is a changelog nobody is maintaining.
   (https://promptguard.co/security#reporting-a-vulnerability) instead of
   keeping its own copy of the response times.
 
-## [1.4.0] — 2026-09-06
+## [1.4.0] - 2026-09-06
 
 The plugin ships instructions, so a wrong reference is a defect in the product
-rather than in its documentation — an agent reading these files acts on them.
+rather than in its documentation, an agent reading these files acts on them.
 
 ### Fixed
 
@@ -156,7 +156,7 @@ rather than in its documentation — an agent reading these files acts on them.
   is tracked in the repository instead of living on one machine, and the last
   unpinned GitHub Action is pinned.
 
-## [1.3.1] — 2026-08-11
+## [1.3.1] - 2026-08-11
 
 ### Fixed
 

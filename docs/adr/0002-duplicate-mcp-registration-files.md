@@ -6,7 +6,7 @@ all of them, so the file exists under both names and CI runs
 `diff -u mcp.json .mcp.json` to fail the build if they ever stop matching.
 
 A symlink is the obvious way to avoid duplicating a file, and it was not used.
-Symlinks do not survive every path a plugin takes to a user's machine — archive
+Symlinks do not survive every path a plugin takes to a user's machine, archive
 extraction, Windows checkouts without developer mode, and tooling that copies
 rather than clones all turn a link into either a broken entry or a text file
 containing a path. A duplicate is inert everywhere, and the cost of duplication

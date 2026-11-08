@@ -18,8 +18,8 @@ purpose (`docs/adr/0002-duplicate-mcp-registration-files.md`): edit both togethe
 ## Every API value is verified against the backend
 
 Everything here is prose an LLM reads as authoritative, and nothing checks it.
-Any concrete API value you write — a threat type, a PII entity name, a plan
-limit, an endpoint path — is checked against the backend at the time it is
+Any concrete API value you write, a threat type, a PII entity name, a plan
+limit, an endpoint path, is checked against the backend at the time it is
 written, and the backend file it came from is named next to it. Threat types,
 for example, are the `ThreatType` enum in `backend/api/shared/security/engine.py`;
 the published OpenAPI spec types `threatType` as a bare string. A wrong value
@@ -40,7 +40,7 @@ git config core.hooksPath .githooks
 
 `.githooks/pre-push` runs a gitleaks scan of the commits you are pushing and the
 manifest validation that mirrors CI's `validate` job. The scan is scoped to the
-pushed range on purpose — a scan of the whole tree or of history would fail on
+pushed range on purpose, a scan of the whole tree or of history would fail on
 its first run and teach everyone `--no-verify`.
 
 To test a change by hand in a host, follow the Testing section of

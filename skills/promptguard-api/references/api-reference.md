@@ -1,4 +1,4 @@
-# PromptGuard API — Detailed Reference
+# PromptGuard API: Detailed Reference
 
 ## Authentication
 
@@ -14,7 +14,7 @@ All keys start with `pg_live_`.
 ## Threat types
 
 The `threatType` field in scan responses carries one of the values below.
-Match on them literally — they are `snake_case`, and several read differently
+Match on them literally, they are `snake_case`, and several read differently
 from the plain-English name of the attack (`prompt_injection`, not `injection`;
 `pii_leak`, not `pii`).
 
@@ -41,7 +41,7 @@ through correlated events, as noted under that table.
 | `off_topic` | Outside the configured topic scope |
 | `gibberish` | Non-language input |
 | `language_violation` | Disallowed language |
-| `multi_turn_escalation` | Intent drift across turns — no single message carries the payload, the trajectory does |
+| `multi_turn_escalation` | Intent drift across turns, no single message carries the payload, the trajectory does |
 
 ### Agent-directed threats
 
@@ -49,7 +49,7 @@ These cover the AI Agent Traps framework (Franklin et al., Google DeepMind
 2025): attacks that reach an autonomous agent through its environment rather
 than through a user's message. They are grouped by what the attack targets.
 
-**Perception — content injection**
+**Perception: content injection**
 
 | Value | Description |
 |-------|-------------|
@@ -61,7 +61,7 @@ than through a user's message. They are grouped by what the attack targets.
 | `font_injection` | Malicious font or glyph mapping |
 | `dynamic_cloaking` | Content served differently to bots than to people |
 
-**Reasoning — semantic manipulation**
+**Reasoning: semantic manipulation**
 
 | Value | Description |
 |-------|-------------|
@@ -69,7 +69,7 @@ than through a user's message. They are grouped by what the attack targets.
 | `critic_evasion` | Content shaped to slip past an oversight or critic step |
 | `persona_hyperstition` | Persona drift induced by sustained roleplay |
 
-**Memory and learning — cognitive state**
+**Memory and learning: cognitive state**
 
 | Value | Description |
 |-------|-------------|
@@ -77,7 +77,7 @@ than through a user's message. They are grouped by what the attack targets.
 | `memory_poisoning` | Poisoned entry in an agent's long-term memory |
 | `few_shot_poisoning` | Poisoned in-context or few-shot example |
 
-**Action — behavioural control**
+**Action: behavioural control**
 
 | Value | Description |
 |-------|-------------|
@@ -86,7 +86,7 @@ than through a user's message. They are grouped by what the attack targets.
 The other behavioural sub-vectors are already covered above:
 `prompt_injection` for embedded jailbreaks, `data_exfiltration` for exfil.
 
-**Multi-agent dynamics — systemic**
+**Multi-agent dynamics: systemic**
 
 | Value | Description |
 |-------|-------------|
@@ -99,16 +99,16 @@ The other behavioural sub-vectors are already covered above:
 from single-call detection.** A single `/scan` response will not carry them, so
 do not write a check that waits for one.
 
-**Human overseer — human in the loop**
+**Human overseer: human in the loop**
 
 | Value | Description |
 |-------|-------------|
 | `approval_fatigue` | Approval requests shaped to exhaust or exploit a human reviewer |
 
 > These values are the `ThreatType` enum in the platform's
-> `backend/api/shared/security/engine.py` — all 37 of them, verified against
+> `backend/api/shared/security/engine.py`: all 37 of them, verified against
 > that enum on 2026-09-01. They are **not** published in
-> `openapi-developer.json`, which types `threatType` as a bare nullable string —
+> `openapi-developer.json`, which types `threatType` as a bare nullable string,
 > so there is nothing to generate them from, and these tables are maintained by
 > hand. Verify against that enum before changing them, and diff the whole set
 > rather than spot-checking: the previous revision listed 17 of 37, all correct
@@ -133,7 +133,7 @@ and others).
 
 > Labels come from `PIIDetector` in the platform's
 > `backend/api/shared/security/detectors.py`, plus `api_key`, which is not a
-> PII entity — it comes from a separate detector — but is accepted in
+> PII entity, it comes from a separate detector, but is accepted in
 > `pii_types` and reported in `piiFound` alongside the rest. Every label named
 > above was verified against `PIIDetector.supported_type_names()` on
 > 2026-09-01; the list is a common-cases sample, not the full 47.
@@ -142,7 +142,7 @@ and others).
 > only those are replaced, an unknown one is a 400 rather than a silent
 > ignore, and `api_key` is stripped by default unless you pass a list that
 > leaves it out. An earlier revision of this file said the opposite. That was
-> true once — the handler accepted the field and dropped it — and it is not
+> true once, the handler accepted the field and dropped it, and it is not
 > true now.
 
 ## Rate limits
@@ -156,7 +156,7 @@ and others).
 
 Rate limits are **per minute**, not per second. Responses carry
 `X-RateLimit-Limit` (the plan's per-minute ceiling) and `X-RateLimit-Reset`
-(unix timestamp of the next window) — read those for backoff rather than
+(unix timestamp of the next window), read those for backoff rather than
 hard-coding the table.
 
 > Monthly limits are `PLAN_CONFIG` in the platform's
@@ -164,7 +164,7 @@ hard-coding the table.
 > `PLAN_RATE_LIMITS` in `backend/api/shared/middleware/rate_limit_headers.py`.
 > Verified against both on 2026-09-01. The previous revision said Free was
 > 10,000/month at "10 req/s" and Pro "50 req/s", omitted Scale entirely, and
-> gave the unit as seconds — so every rate figure was overstated tenfold.
+> gave the unit as seconds, so every rate figure was overstated tenfold.
 > Enforcement is at the Cloud Armor / load-balancer layer; these values are
 > what the headers advertise.
 

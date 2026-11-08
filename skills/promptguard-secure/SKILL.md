@@ -5,7 +5,7 @@ description: "Add PromptGuard to the current project now: install promptguard-sd
 
 # Add PromptGuard Security
 
-> **This skill is the "do it now" path** — it applies the recommended
+> **This skill is the "do it now" path**: it applies the recommended
 > auto-instrumentation integration directly. To compare integration methods
 > (auto-instrumentation vs. Guard API vs. HTTP proxy) or for framework-specific
 > guidance, defer to the [secure-llm-integration skill](../secure-llm-integration/SKILL.md),
