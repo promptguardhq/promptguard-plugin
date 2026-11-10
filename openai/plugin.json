@@ -2,7 +2,7 @@
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "promptguard",
   "version": "1.5.0",
-  "description": "Scan prompts for injection attacks, redact personal data, and find unprotected LLM calls in code.",
+  "description": "Scan prompts for injection attacks, redact personal data, find unprotected LLM calls in code, and read your organization's PromptGuard events, usage, policies and audit log.",
   "author": {
     "name": "PromptGuard",
     "email": "support@promptguard.co",
@@ -17,7 +17,7 @@
       "interface": {
         "displayName": "PromptGuard",
         "shortDescription": "Scan prompts, redact PII",
-        "longDescription": "PromptGuard is a firewall for AI prompts. Ask it to check any text before it reaches a model, or a model's answer before you use it: it detects prompt injection, jailbreak attempts and leaks of personal data or secrets, and says whether to allow, block or redact.\n\nIt can also redact personal data such as email addresses, phone numbers, card numbers and API keys, replacing each with a labelled placeholder, and it can look through a piece of code you paste and point out the calls to OpenAI, Anthropic, Google and other LLM SDKs that are not protected.\n\nScanning code works without an account. Scanning and redacting text sign you in with your PromptGuard account, and each scan or redaction counts against your PromptGuard plan like the equivalent API call. A free plan is available at promptguard.co.",
+        "longDescription": "PromptGuard is a firewall for AI prompts. Ask it to check any text before it reaches a model, or a model's answer before you use it: it detects prompt injection, jailbreak attempts and leaks of personal data or secrets, and says whether to allow, block or redact.\n\nIt can also redact personal data such as email addresses, phone numbers, card numbers and API keys, replacing each with a labelled placeholder, and it can look through a piece of code you paste and point out the calls to OpenAI, Anthropic, Google and other LLM SDKs that are not protected.\n\nIf you already use PromptGuard, you can ask about your own organization without opening the dashboard: what was blocked or redacted recently, how much of this month's plan is used, which security policies are active, and who changed what in the audit log. These answers are read-only and never include the text of a scanned prompt.\n\nScanning code works without an account. Everything else signs you in with your PromptGuard account. Each scan or redaction counts against your PromptGuard plan like the equivalent API call, and the audit log needs a plan that includes it. A free plan is available at promptguard.co.",
         "developerName": "PromptGuard",
         "category": "Developer Tools",
         "capabilities": [],
@@ -67,6 +67,30 @@
               "prompt": "What PromptGuard plan am I on, and am I connected?",
               "tools_triggered": ["promptguard_status"],
               "expected_behavior": "Calls promptguard_status and says the account is connected and names its plan."
+            },
+            {
+              "description": "Lists the organization's recent blocked requests",
+              "prompt": "What has PromptGuard blocked in my organization recently?",
+              "tools_triggered": ["promptguard_list_events"],
+              "expected_behavior": "Calls promptguard_list_events filtered to block decisions and lists the most recent events with their threat types, confidence and time, newest first, without any prompt text."
+            },
+            {
+              "description": "Reports this month's usage against the plan",
+              "prompt": "How many PromptGuard requests have I used this month, and how many are left?",
+              "tools_triggered": ["promptguard_get_usage"],
+              "expected_behavior": "Calls promptguard_get_usage and reports Requests used and remaining, the monthly limit, and the days until it resets."
+            },
+            {
+              "description": "Lists the organization's security policies",
+              "prompt": "Which PromptGuard security policies are active on my projects?",
+              "tools_triggered": ["promptguard_list_policies"],
+              "expected_behavior": "Calls promptguard_list_policies and lists each policy's name, type, whether it is active and enforced, and how often it has triggered. It changes nothing."
+            },
+            {
+              "description": "Shows recent audit log entries",
+              "prompt": "Show me the last few changes in my PromptGuard audit log.",
+              "tools_triggered": ["promptguard_list_audit_log"],
+              "expected_behavior": "Calls promptguard_list_audit_log and lists recent entries, newest first, with who did what and when. On a plan without audit logs it says the plan does not include them."
             }
           ],
           "negative": [
