@@ -13,6 +13,8 @@ survives three releases is a changelog nobody is maintaining.
 
 ## [Unreleased]
 
+## [1.6.0] - 2026-11-10
+
 ### Added
 
 - **A package for ChatGPT and Codex.** `scripts/build-openai-package.sh`
@@ -20,6 +22,11 @@ survives three releases is a changelog nobody is maintaining.
   server, the skills, the logo, the listing text and the review cases, from
   `openai/plugin.json` and `openai/mcp.json`. The Codex manifest also names a
   support link and the logo.
+- **The ChatGPT and Codex listing names the read-only account tools.** If you
+  already use PromptGuard you can ask what was blocked or redacted recently,
+  how much of this month's plan is used, which policies are active, and what
+  changed in the audit log, without opening the dashboard. None of these
+  answers include the text of a scanned prompt.
 
 ### Fixed
 

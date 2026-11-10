@@ -1,7 +1,7 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "promptguard",
-  "version": "1.5.0",
+  "version": "1.6.0",
   "description": "Scan prompts for injection attacks, redact personal data, find unprotected LLM calls in code, and read your organization's PromptGuard events, usage, policies and audit log.",
   "author": {
     "name": "PromptGuard",
