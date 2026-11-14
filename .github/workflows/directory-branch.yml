@@ -1,0 +1,30 @@
+name: Directory branch
+
+# Claude's plugin directory reads the `directory` branch, which holds only
+# plugins/promptguard/ at its root (ADR 0005). Every release tag moves it, so
+# the directory sees releases, not every commit to main.
+on:
+  push:
+    tags: ['v*']
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: directory-branch
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    name: Publish plugins/promptguard to the directory branch
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: write # push the directory branch
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          fetch-depth: 0
+      - name: scripts/publish-directory-branch.sh
+        run: scripts/publish-directory-branch.sh "$GITHUB_SHA"

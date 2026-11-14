@@ -28,7 +28,12 @@ it has not drifted, and pointing at one folder needs no check at all.
 Anything executable, and any file type outside the list above, goes outside
 `plugins/promptguard/`. `scripts/check.sh` fails if one lands inside it, and
 runs `claude plugin validate --strict` on the folder as well as on the root.
-The directory submission's source path must name `plugins/promptguard`.
+A submission's plugin path cannot change once made, and a new submission
+would start the listing over, so the existing submission (path: repository
+root) tracks the `directory` branch instead of `main`: `git subtree split` of
+`plugins/promptguard/`, pushed by `.github/workflows/directory-branch.yml` on
+every `v*` tag (`scripts/publish-directory-branch.sh`). Never commit to that
+branch by hand; it is rebuilt from `main`.
 `plugins/promptguard/.mcp.json` is a third byte-identical copy of the MCP
 registration (ADR 0002). `assets/logo.png` there is rendered from
 `assets/logo.svg`; re-render it when the logo changes.

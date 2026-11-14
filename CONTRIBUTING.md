@@ -117,7 +117,7 @@ Changes are published by pushing to the `main` branch. Agents pull plugin update
 
 To bump the plugin version, update `version` in all three manifests (`.cursor-plugin/plugin.json`, `plugins/promptguard/.claude-plugin/plugin.json`, `.codex-plugin/plugin.json`) so they stay in sync.
 
-A version is released by tagging it and publishing a GitHub Release whose notes are its `CHANGELOG.md` section (`gh release create vX.Y.Z --notes-file <section>`). Publishing it runs `.github/workflows/release.yml`, which announces it in Slack `#releases` through `scripts/post-release.sh` and the `SLACK_RELEASES_WEBHOOK_URL` secret; a failed post only warns.
+A version is released by tagging it and publishing a GitHub Release whose notes are its `CHANGELOG.md` section (`gh release create vX.Y.Z --notes-file <section>`). Pushing the tag runs `.github/workflows/directory-branch.yml`, which rebuilds the `directory` branch (plugins/promptguard/ at its root) that Claude's plugin directory reads (ADR 0005). Publishing the Release runs `.github/workflows/release.yml`, which announces it in Slack `#releases` through `scripts/post-release.sh` and the `SLACK_RELEASES_WEBHOOK_URL` secret; a failed post only warns.
 
 ## PR Checklist
 

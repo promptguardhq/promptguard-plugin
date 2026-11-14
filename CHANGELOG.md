@@ -13,6 +13,14 @@ survives three releases is a changelog nobody is maintaining.
 
 ## [Unreleased]
 
+## [1.7.1] - 2026-11-14
+
+### Changed
+
+- Claude's plugin directory now reads the `directory` branch, which each
+  release rebuilds with `plugins/promptguard/` at its root, and the plugin
+  folder has a README of its own. Nothing changes for an installed plugin.
+
 ## [1.7.0] - 2026-11-14
 
 ### Changed

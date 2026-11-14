@@ -25,7 +25,9 @@ plugin that Claude's plugin directory is given; the Cursor and Codex manifests
 point into it. That folder holds only Markdown, JSON and one PNG: the
 directory refuses anything else from an unverified organization, so scripts,
 hooks and tooling stay outside it, and `scripts/check.sh` fails if one lands
-there (`docs/adr/0005-the-claude-plugin-lives-in-a-subfolder.md`).
+there. The directory reads the `directory` branch, which a release tag rebuilds
+from that folder; never commit to it by hand
+(`docs/adr/0005-the-claude-plugin-lives-in-a-subfolder.md`).
 
 ## Every API value is verified against the backend
 
