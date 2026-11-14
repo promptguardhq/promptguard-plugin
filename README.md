@@ -172,6 +172,17 @@ asks you to sign in:
 </details>
 
 <details>
+<summary>Use the MCP server in <b>Cline</b></summary>
+<br />
+
+In Cline, open MCP Servers, then Remote Servers, and add
+`https://api.promptguard.co/mcp` with the Streamable HTTP transport. Or add the
+entry to `cline_mcp_settings.json` yourself; [`llms-install.md`](llms-install.md)
+has it, and the steps an agent follows.
+
+</details>
+
+<details>
 <summary>Use the MCP server in <b>Windsurf or any other MCP client</b></summary>
 <br />
 
