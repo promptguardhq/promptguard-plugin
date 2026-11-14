@@ -12,7 +12,7 @@ makes no HTTP request. Nothing in it compiles, imports, or deserializes.
 
 **The exposure is different in kind, and it is worse.** Instead of types, this
 repo restates API facts as prose that an LLM will read as authoritative,
-`skills/promptguard-api/references/api-reference.md` carries tables of threat
+`plugins/promptguard/skills/promptguard-api/references/api-reference.md` carries tables of threat
 types, PII entity types and plan rate limits. Nothing checks them, and a
 generator cannot: they are prose, and the two that matter most are not in the
 published spec to generate from. `openapi-developer.json` types `threatType` as

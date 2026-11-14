@@ -13,6 +13,23 @@ survives three releases is a changelog nobody is maintaining.
 
 ## [Unreleased]
 
+## [1.7.0] - 2026-11-14
+
+### Changed
+
+- **The Claude Code plugin moved to `plugins/promptguard/`.** Claude's plugin
+  directory refused 1.5.0 and 1.6.0 because the repository root also holds
+  the check scripts and git hooks, which it accepts only from verified
+  organizations. The plugin it is given is now a folder of Markdown, JSON and
+  a PNG icon. Installing is unchanged:
+  `/plugin install promptguard --marketplace promptguardhq/promptguard-plugin`
+  still works, because the marketplace now points at the folder. The Cursor and
+  Codex manifests read the skills and the reviewer from it too.
+- The Claude Code manifest drops four fields Claude Code does not read
+  (`displayName`, `documentationUrl`, `supportUrl`, `termsOfServiceUrl`); the
+  directory listing carries those links. Its icon is now a PNG, which the
+  directory requires.
+
 ## [1.6.0] - 2026-11-10
 
 ### Added

@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "promptguard": {
+      "type": "http",
+      "url": "https://api.promptguard.co/mcp"
+    }
+  }
+}

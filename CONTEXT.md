@@ -23,7 +23,7 @@ customer's own software, so a sentence with "agent" in it usually needs
 rereading to work out which of the three is meant.
 
 **Reviewer**:
-The specialised persona in `agents/`, which a host can delegate a security
+The specialised persona in `plugins/promptguard/agents/`, which a host can delegate a security
 review to.
 _Avoid_: agent, subagent, persona, bot
 
@@ -50,7 +50,7 @@ _Avoid_: workflow, guide, recipe
 **Command**:
 A skill meant to be invoked by name (`promptguard-scan`, `promptguard-secure`),
 which does the recommended thing without asking the person to choose. Since
-1.5.0 these are skills in `skills/`; there is no `commands/` directory.
+1.5.0 these are skills in `plugins/promptguard/skills/`; there is no `commands/` directory.
 _Avoid_: slash command (the leading slash is one host's spelling), action,
 shortcut
 

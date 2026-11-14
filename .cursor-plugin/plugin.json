@@ -1,7 +1,7 @@
 {
   "name": "promptguard",
   "displayName": "PromptGuard",
-  "version": "1.6.0",
+  "version": "1.7.0",
   "description": "LLM security for AI coding agents -- protect applications from prompt injection, PII leakage, and data exfiltration",
   "author": {
     "name": "PromptGuard",
@@ -20,5 +20,8 @@
     "anthropic",
     "data-protection"
   ],
-  "logo": "assets/logo.svg"
+  "logo": "assets/logo.svg",
+  "skills": "./plugins/promptguard/skills/",
+  "agents": "./plugins/promptguard/agents/",
+  "rules": "./rules/"
 }

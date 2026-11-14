@@ -18,6 +18,6 @@ server carry the rest.
 ## Consequences
 
 Do not add a `settings.json` with `agent`, or a `settings.agent` key in
-`.claude-plugin/plugin.json`. A developer who wants the reviewer as their main
+`plugins/promptguard/.claude-plugin/plugin.json`. A developer who wants the reviewer as their main
 agent sets `"agent": "promptguard:llm-security-reviewer"` in their own
 `~/.claude/settings.json`.

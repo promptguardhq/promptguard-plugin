@@ -15,9 +15,17 @@ local server (`promptguard mcp -t stdio`) is an optional extra the README
 documents, not something the plugin registers.
 
 Static Markdown and JSON, no build step. Each host loads its own manifest
-(`.cursor-plugin/`, `.claude-plugin/`, `.codex-plugin/`), and the three must
-carry the same `version`. `mcp.json` and `.mcp.json` stay byte-identical on
-purpose (`docs/adr/0002-duplicate-mcp-registration-files.md`): edit both together.
+(`.cursor-plugin/`, `plugins/promptguard/.claude-plugin/`, `.codex-plugin/`),
+and the three must carry the same `version`. `mcp.json`, `.mcp.json` and
+`plugins/promptguard/.mcp.json` stay byte-identical on purpose
+(`docs/adr/0002-duplicate-mcp-registration-files.md`): edit them together.
+
+**The skills and the reviewer live in `plugins/promptguard/`**, the Claude Code
+plugin that Claude's plugin directory is given; the Cursor and Codex manifests
+point into it. That folder holds only Markdown, JSON and one PNG: the
+directory refuses anything else from an unverified organization, so scripts,
+hooks and tooling stay outside it, and `scripts/check.sh` fails if one lands
+there (`docs/adr/0005-the-claude-plugin-lives-in-a-subfolder.md`).
 
 ## Every API value is verified against the backend
 
@@ -59,7 +67,9 @@ until you sign in to PromptGuard.
 
 - Rules use `.mdc` (Cursor rule syntax); every other host reads the same files.
 - Skills use the `SKILL.md` format with clear trigger conditions.
-- Text and SVG only; keep binaries and large assets out of the repo.
+- Text and SVG only; keep binaries and large assets out of the repo. The one
+  exception is `plugins/promptguard/assets/logo.png`, the directory icon (it
+  takes no SVG), rendered from `assets/logo.svg`.
 
 ## This repo is public
 

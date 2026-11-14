@@ -8,7 +8,7 @@
   "plugins": [
     {
       "name": "promptguard",
-      "source": "./",
+      "source": "./plugins/promptguard",
       "description": "LLM security for AI coding agents -- protect applications from prompt injection, PII leakage, and data exfiltration"
     }
   ]

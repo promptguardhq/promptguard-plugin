@@ -33,12 +33,12 @@ import json, sys
 src, dst, demo = sys.argv[1:4]
 manifest = json.load(open(src))
 manifest["extensions"]["com.openai"]["review"]["demo_recording_url"] = demo
-version = json.load(open(src.replace("openai/plugin.json", ".claude-plugin/plugin.json")))["version"]
+version = json.load(open(src.replace("openai/plugin.json", "plugins/promptguard/.claude-plugin/plugin.json")))["version"]
 manifest["version"] = version
 json.dump(manifest, open(dst, "w"), indent=2)
 EOF
 cp "$root/openai/mcp.json" "$stage/mcp.json"
-cp -R "$root/skills" "$stage/skills"
+cp -R "$root/plugins/promptguard/skills" "$stage/skills"
 mkdir -p "$stage/assets"
 cp "$root/assets/logo.svg" "$stage/assets/logo.svg"
 
