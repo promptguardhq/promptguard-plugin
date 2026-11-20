@@ -103,7 +103,7 @@ PROMPTGUARD_API_KEY=pg_live_xxx
 3. Verify `.env` (and `.env.local`, `.env.production`, etc.) is listed in `.gitignore`. If not, add it.
 
 4. Inform the user:
-> Get your API key from https://app.promptguard.co/settings/api-keys
+> Get your API key from https://app.promptguard.co/dashboard/api-keys
 > Replace `pg_live_xxx` with your actual key.
 
 ## Phase 5: Verify
