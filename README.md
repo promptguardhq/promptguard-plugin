@@ -229,7 +229,7 @@ It also has its own `promptguard_scan_text`, `promptguard_redact` and
 - Windows, or any platform: download the binary from [GitHub Releases](https://github.com/promptguardhq/promptguard-cli/releases/latest)
 - Every method, including building from source: [the CLI's installation table](https://github.com/promptguardhq/promptguard-cli#installation)
 
-**2. Get an API key** from [app.promptguard.co/settings/api-keys](https://app.promptguard.co/settings/api-keys)
+**2. Get an API key** from [app.promptguard.co/dashboard/api-keys](https://app.promptguard.co/dashboard/api-keys)
 and give it to the CLI with `promptguard login`, the `promptguard_auth` tool,
 or the `PROMPTGUARD_API_KEY` environment variable.
 
